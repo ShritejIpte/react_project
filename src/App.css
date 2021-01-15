@@ -1,0 +1,378 @@
+*{
+    margin:0;
+    padding: 0;
+}
+
+/* .wrapper{
+    float: left;width: 100%;overflow: hidden;
+}
+.mainwrap {
+    float: left;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    background-color: #eee;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+.loginmain {
+    float: none;
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+    display: table;
+    padding: 20px 25px;
+    border-radius: 4px;
+    background-color: #fff;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 1;
+}
+.mainHead {
+    float: left;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 15px;
+}
+.mainHead h2 {
+    font-size: 26px;
+    font-weight: bold;
+}
+.loginmain .form-group{
+    float: left;
+    width: 100%;
+}
+.loginmain .form-group label{
+    float: left;
+    width: 100%;
+    font-weight: 500;
+    font-size: 14px;
+}
+.needaccount {
+    font-size: 15px;
+}
+.mainwrapdata{
+    float: left;
+    width: 100%;
+    position: relative;
+}
+.hadersection{
+    float: left;width: 100%;box-shadow: 0px 0px 11px 1px #ddd;padding: 12px 10px;
+}
+.hadersection h4{
+    float: left;
+    width: auto;
+    font-weight: bold;
+    font-size: 22px;
+}
+.logoutbtn {
+    float: right;
+    width: auto;
+    font-size: 14px !important;
+    padding: 7px 12px !important;
+    line-height: normal !important;
+}
+.bodydata {
+    float: left;
+    width: 100%;
+    padding: 20px 20px;
+    margin-top: 28px;
+}
+.tableset{
+    float: left;
+    width: 100%;
+}
+.tableset thead th{
+    background-color: #eee;font-size: 14px;
+}
+.tableset tbody td{
+    font-size: 14px;
+}
+.btn-primary.disabled, .btn-primary:disabled{
+    cursor: no-drop;
+} */
+
+@font-face {
+    font-family: 'Agency FB';
+    src: url('/fonts/AgencyFB-Reg.woff2') format('woff2'),
+        url('/fonts/AgencyFB-Reg.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+
+body {
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 18px;
+}
+
+.btn-primary{
+    background-color: transparent !important;
+    border-color: #7a7a7a !important;
+    color: #000 !important;
+    border-radius: 30px !important;
+}
+
+.btn-primary:hover{
+    background-color: #4e80e7 !important;
+    border-color: #4e80e7 !important;
+    color: #ffffff !important;
+}
+
+/******************* Login ****************/
+.login-bg {
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    background-color: #eee;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-image: url(/images/login-bg.jpg);
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    overflow-y: auto;
+}
+
+.login-bg .btn-primary{
+    min-width: 140px;
+}
+
+.login-holder {
+    padding: 20px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.30);
+    margin: 20px auto;
+}
+
+.login-holder-inner {
+    padding: 30px 20px;
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+.login-holder-inner h2 {
+    color: #000000;
+    letter-spacing: 2px;
+    font-size: 30px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 50px;
+    font-weight: 700;
+    font-family: 'Agency FB';
+}
+
+.login-input .form-horizontal.login{
+    padding:  0 50px;
+}
+
+.form-horizontal .col-form-label {
+    font-size: 14px;
+    color: #000;
+    text-transform: uppercase;
+    padding: 0;
+    margin-bottom: 8px;
+    line-height: 16px;
+    font-weight: 700;
+}
+.login-holder-inner .form-control {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    padding-left: 0;
+    font-size: 16px;
+    border-bottom: 1px solid #d2d2d2;
+}
+.forgot-password {
+    text-transform: uppercase;
+    color: #000000;
+    font-size: 14px;
+}
+
+.login-holder-inner .form-horizontal.login .form-group:last-child{
+    margin-bottom: 0 !important;
+}
+.login-holder-inner .form-horizontal .form-group .btn-link{
+    font-size: 14px;
+    color: #000;
+}
+.login-holder-inner .form-horizontal .form-group .btn-link:hover{
+    text-decoration: none;
+    cursor: context-menu;
+}
+.login-holder-inner .form-horizontal .form-group .btn-link a{
+    color: #000;
+    text-decoration: underline;
+}
+.navbar{
+    display: block !important;
+    margin-bottom: 30px;
+}
+.user-info{
+    display: block;
+    float: right !important;
+}
+.user-info .btn {
+    height: auto;
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+    color: #ffffff;
+    font-size: 1rem;
+    text-transform: none;
+    padding: 0;
+}
+.user-info .btn:hover, .user-info .btn:focus{
+    background-color: transparent!important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+.user-info .btn span.user-photo {
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 3px solid #cccccc;
+    vertical-align: middle;
+    margin-right: 15px;
+}
+.user-info .btn span.user-photo img {
+    width: 100%;
+}
+.wrapper{
+    height: 100vh;
+    background-image: url(images/bg-image.png);
+    background-position: center top;
+    background-attachment: fixed;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.logo{
+    display: block;
+    margin:30px auto;
+    text-align: center;
+}
+a.nav{
+    display: block !important;
+    height: 80px;
+    line-height: 66px;
+    padding: 15px 15px 15px 20px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+a.nav:hover{
+    opacity: 1 !important;
+    background-color: #4e80e7;
+    color: #ffffff;
+    margin-left: 20px;
+    border-radius: 35px 0 0 35px;
+}
+a.nav:hover .text{
+    color: #ffffff;
+}
+.nav .text{
+    font-size: 18px;
+    color: #000000;
+    float: left;
+    line-height: 51px;
+}
+
+.nav .icon{
+    display: inline-block !important;
+    float: left;
+    width: 43px;
+    height: 51px;
+    margin-right: 30px;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.nav.client-list .icon{
+    background-image: url(/images/client-list.png);
+}
+.nav.client-list:hover .icon, .nav.client-list.active .icon{
+    background-image: url(/images/client-list-active.png);
+}
+
+.nav.invoices .icon{
+    background-image: url(/images/invoices.png);    
+}
+.nav.invoices:hover .icon, .nav.invoices.active .icon{
+    background-image: url(/images/invoices-active.png);
+}
+
+.nav.reports .icon{
+    background-image: url(/images/reports.png);    
+}
+.nav.reports:hover .icon, .nav.reports.active .icon{
+    background-image: url(/images/reports-active.png);
+}
+
+.main-view{
+    padding-left: 250px;
+}
+.section-title{
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+.btn-secondary:not(:disabled):not(.disabled).active, 
+.btn-secondary:not(:disabled):not(.disabled):active, 
+.show>.btn-secondary.dropdown-toggle{
+    
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+.inner-forms .form-label{
+    font-size: 16px !important;
+    line-height: 18px;
+}
+
+.inner-forms .form-control{
+    font-size: 16px;
+}
+.sc-gsTCUz{
+    height: auto !important;
+}
+
+.order-details .details p.name {
+    color: #000000;
+    font-size: 18px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.order-details p{
+    margin-bottom: 10px !important;
+}
+
+@media only screen and (max-width: 1024px) {
+    .login-input .form-horizontal.login{
+        padding:  0;
+    }
+}
+@media only screen and (max-width: 767px) {
+    .login-holder-inner h2{
+        margin-bottom: 20px;
+    }
+    .forgot-password {
+        padding: 10px 0px;
+    }
+    .login-bg .btn-primary {
+        min-width: 100px;
+    }
+    .login-btn-panel {
+        text-align: center;
+        margin-bottom: 0;
+    }
+    .login-holder-inner .form-horizontal.login .form-group:last-child{
+        margin-bottom: 0 !important;
+    }
+}
