@@ -3,76 +3,125 @@ import {Card, Container,Row,Col,Form} from 'react-bootstrap';
 import Sidebar from './component/Sidebar';
 import {NavigationBar} from './component/NavigationBar';
 import { Multiselect } from 'multiselect-react-dropdown';
+import ShowAll from './ShowAll';
 class ClientList extends Component{
 
 constructor(props){
     super(props);
-
-
-
-    
     // this.state=initialState;
     //   this.FirstName = this.FirstName.bind(this);
-    this.state = {value: 3, teams: [
-        {
-      value: 1,
-      label: "cerulean"
-    },
-    {
-      value: 2,
-      label: "fuchsia rose"
-    },
-    {
-      value: 3,
-      label: "true red"
-    },
-    {
-      value: 4,
-      label: "aqua sky"
-    },
-    {
-      value: 5,
-      label: "tigerlily"
-    },
-    {
-      value: 6,
-      label: "blue turquoise"
+    this.state = {
+     company_data:[],
+     industry_data:[],
+     job_title:[],
+     city_data:[],
+     state_data:[],
+     country_data:[],
+     employees_data:[],
+     investment_partners_data:[],
+     selected_company_data:[], 
+     selected_industry_data:[],
+     selected_job_title:[],
+     selected_city_data:[],
+     selected_state_data:[],
+     selected_country_data:[],
+     selected_employees_data:[],
+    selected_investment_partners_data:[],
+    search_result:[],
+    pending:false,
+    //  search_result: [{
+    //     empCode: "119",
+    //     name: "Test employee",
+    //     age: "25",
+    //     email: "abc@abc.com",
+    //     location: "Hyderabad"
+    //   }]
     }
-    ],
-     options: [{name: 'Srigar', id: 1},{name: 'Sam', id: 2}]
-    };
-    this.handleChange = this.handleChange.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
     // this.handleSubmit = this.handleSubmit.bind(this);
 }
-  handleChange(event) {    this.setState({value: event.target.value});  }
+//   handleChange(event) {    this.setState({value: event.target.value});  }
 
   componentDidMount() {
 
- fetch('http://127.0.0.1:8000/api/auth/login', {
+ fetch('http://127.0.0.1:8000/api/get_dropdown_data', {
+      method: 'get',
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+            },
+    
+    }).then((Response) => Response.json()).then((Result) => {
+      console.log(Result);
+    //   console.log(Result.data.company_name);
+    //   if(Result.status==0){
+    //      alert(Result.msg);
+    //   }else{
+    //         this.getData();
+            this.setState({ company_data:Result.data.company_name });
+            this.setState({ industry_data:Result.data.industry });
+            this.setState({ job_title:Result.data.job_title });
+            this.setState({ city_data:Result.data.city });
+            this.setState({ state_data:Result.data.state });
+            this.setState({ country_data:Result.data.country });
+            this.setState({ employees_data:Result.data.employees });
+            this.setState({ investment_partners_data:Result.data.investment_partners });
+            
+    //   }
+
+   })
+  }
+ 
+get_result=()=>
+{   
+ fetch('http://127.0.0.1:8000/api/get_search_result', {
       method: 'post',
             headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
             },
-            
       body: JSON.stringify({       
-        email_id: this.state.Email,
-        password: this.state.Password         
-      })
+        selected_company_data: this.state.selected_company_data,
+        selected_industry_data: this.state.selected_industry_data,
+        selected_job_title:this.state.selected_job_title,
+        selected_city_data:this.state.selected_city_data,
+        selected_state_data:this.state.selected_state_data,
+        selected_country_data:this.state.selected_country_data,
+        selected_employees_data:this.state.selected_employees_data,
+        selected_investment_partners_data:this.state.selected_investment_partners_data,
+      }),
     }).then((Response) => Response.json()).then((Result) => {
       console.log(Result);
-      if(Result.status==0){
-         alert(Result.msg);
-      }else{
-            this.setState({ access_token:Result.access_token });
-            this.getData();
-      }
-
+this.setState({search_result:Result})
+   
    })
+this.setState({data: "Welcome"})
+}
 
-
-
-  }
+onCompanySelect=(selectedList, selectedItem) =>{
+this.setState({selected_company_data: selectedList})
+}
+onIndustrySelect=(selectedList, selectedItem) =>{
+    this.setState({selected_industry_data: selectedList})
+}
+onJobTitleSelect=(selectedList, selectedItem) =>{
+    this.setState({selected_job_title: selectedList})
+}
+onCitySelect=(selectedList, selectedItem) =>{
+    this.setState({selected_city_data: selectedList})
+}
+onStateSelect=(selectedList, selectedItem) =>{
+    this.setState({selected_state_data: selectedList})
+}
+onCountrySelect=(selectedList, selectedItem) =>{
+    this.setState({selected_country_data: selectedList})
+}
+onEmployeesSelect=(selectedList, selectedItem) =>{
+    this.setState({selected_employees_data: selectedList})
+}
+onInvestmentSelect=(selectedList, selectedItem) =>{
+    this.setState({selected_investment_partners_data: selectedList})
+}
 
 render(){
      return (
@@ -92,107 +141,129 @@ render(){
                                             <Col lg={3}>
                                                 <Form.Group controlId="exampleForm.ControlInput1">
                                                     <Form.Label>Company</Form.Label>
-                                                    <Form.Control as="select"  value={this.state.value} onChange={this.handleChange}>
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
-                                                    </Form.Control>
+                                                    <Multiselect
+                                                    //  {this.state.industry_data.map((industry_data) => <option key={industry_data.industry} value={industry_data.industry}>{industry_data.industry}</option>)}
+                                                    options={this.state.company_data} // Options to display in the dropdown
+                                                    // selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
+                                                    onSelect={this.onCompanySelect} // Function will trigger on select event
+                                                    // onRemove={this.onRemove} // Function will trigger on remove event
+                                                    displayValue="company_name" // Property name to display in the dropdown options
+                                                   onChange={(e) => this.setState({selected_company_data: e.target.displayValue})}
+                                                    />
                                                 </Form.Group>                                        
                                             </Col>
                                             <Col lg={3}>
                                                 <Form.Group controlId="exampleForm.ControlInput1">
                                                     <Form.Label>Industry</Form.Label>
-                                                    <Form.Control as="select" >
-                                                         {this.state.teams.map((team) => <option key={team.value} value={team.value}>{team.label}</option>)}
-                                                    </Form.Control>
+                                                    {/* <Form.Control as="select" > */}
+                                                         {/* {this.state.teams.map((team) => <option key={team.label} value={team.label}>{team.label}</option>)} */}
+                                                         {/* {this.state.industry_data.map((industry_data) => <option key={industry_data.industry} value={industry_data.industry}>{industry_data.industry}</option>)} */}
+                                                    {/* </Form.Control> */}
+                                                     <Multiselect
+                                                    //  {this.state.industry_data.map((industry_data) => <option key={industry_data.industry} value={industry_data.industry}>{industry_data.industry}</option>)}
+                                                    options={this.state.industry_data} // Options to display in the dropdown
+                                                    // selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
+                                                    onSelect={this.onIndustrySelect} // Function will trigger on select event
+                                                    // onRemove={this.onRemove} // Function will trigger on remove event
+                                                    displayValue="industry" // Property name to display in the dropdown options
+                                                    onChange={this.handleChange}
+                                                    />
                                                 </Form.Group>                                        
                                             </Col>
                                             <Col lg={3}>
                                                 <Form.Group controlId="exampleForm.ControlInput1">
                                                     <Form.Label>Job Title</Form.Label>
-                                                    <Form.Control as="select" >
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
-                                                    </Form.Control>
+                                                     <Multiselect
+                                                    //  {this.state.industry_data.map((industry_data) => <option key={industry_data.industry} value={industry_data.industry}>{industry_data.industry}</option>)}
+                                                    options={this.state.job_title} // Options to display in the dropdown
+                                                    // selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
+                                                    onSelect={this.onJobTitleSelect} // Function will trigger on select event
+                                                    // onRemove={this.onRemove} // Function will trigger on remove event
+                                                    displayValue="job_title" // Property name to display in the dropdown options
+                                                   
+                                                   onChange={this.handleChange}
+                                                    />
                                                 </Form.Group>                                        
                                             </Col>
                                             <Col lg={3}>
                                                 <Form.Group controlId="exampleForm.ControlInput1">
                                                     <Form.Label>City</Form.Label>
                                                     <Multiselect
-                                                    options={this.state.options} // Options to display in the dropdown
+                                                    options={this.state.city_data} // Options to display in the dropdown
                                                     // selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
-                                                    // onSelect={this.onSelect} // Function will trigger on select event
+                                                    onSelect={this.onCitySelect} // Function will trigger on select event
                                                     // onRemove={this.onRemove} // Function will trigger on remove event
-                                                    displayValue="name" // Property name to display in the dropdown options
+                                                    displayValue="City" // Property name to display in the dropdown options
+                                                    onChange={this.handleChange}
                                                     />
-                                                    {/* <Form.Control as="select" >
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
-                                                    </Form.Control> */}
+                                                 
                                                 </Form.Group>                                        
                                             </Col>
                                             <Col lg={3}>
                                                 <Form.Group controlId="exampleForm.ControlInput1">
                                                     <Form.Label>State</Form.Label>
-                                                    <Form.Control as="select" >
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
-                                                    </Form.Control>
+                                                     <Multiselect
+                                                    //  {this.state.industry_data.map((industry_data) => <option key={industry_data.industry} value={industry_data.industry}>{industry_data.industry}</option>)}
+                                                    options={this.state.state_data} // Options to display in the dropdown
+                                                    // selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
+                                                    onSelect={this.onStateSelect} // Function will trigger on select event
+                                                    // onRemove={this.onRemove} // Function will trigger on remove event
+                                                    displayValue="State" // Property name to display in the dropdown options
+                                                   onChange={this.handleChange}
+                                                    />
                                                 </Form.Group>                                        
                                             </Col>
                                             <Col lg={3}>
                                                 <Form.Group controlId="exampleForm.ControlInput1">
                                                     <Form.Label>Country</Form.Label>
-                                                    <Form.Control as="select" >
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
-                                                    </Form.Control>
+                                                    <Multiselect
+                                                    //  {this.state.industry_data.map((industry_data) => <option key={industry_data.industry} value={industry_data.industry}>{industry_data.industry}</option>)}
+                                                    options={this.state.country_data} // Options to display in the dropdown
+                                                    // selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
+                                                    onSelect={this.onCountrySelect} // Function will trigger on select event
+                                                    // onRemove={this.onRemove} // Function will trigger on remove event
+                                                    displayValue="Country" // Property name to display in the dropdown options
+                                                   onChange={this.handleChange}
+                                                    />
                                                 </Form.Group>                                        
                                             </Col>
                                             <Col lg={3}>
                                                 <Form.Group controlId="exampleForm.ControlInput1">
                                                     <Form.Label>Employees</Form.Label>
-                                                    <Form.Control as="select" >
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
-                                                    </Form.Control>
+                                                    <Multiselect
+                                                    //  {this.state.industry_data.map((industry_data) => <option key={industry_data.industry} value={industry_data.industry}>{industry_data.industry}</option>)}
+                                                    options={this.state.employees_data} // Options to display in the dropdown
+                                                    // selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
+                                                    onSelect={this.onEmployeesSelect} // Function will trigger on select event
+                                                    // onRemove={this.onRemove} // Function will trigger on remove event
+                                                    displayValue="Employees" // Property name to display in the dropdown options
+                                                    onChange={this.handleChange}
+                                                    />
                                                 </Form.Group>                                        
                                             </Col>
                                             <Col lg={3}>
                                                 <Form.Group controlId="exampleForm.ControlInput1">
                                                     <Form.Label>Investment</Form.Label>
-                                                    <Form.Control as="select" >
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
-                                                    </Form.Control>
+                                                    <Multiselect
+                                                    //  {this.state.industry_data.map((industry_data) => <option key={industry_data.industry} value={industry_data.industry}>{industry_data.industry}</option>)}
+                                                    options={this.state.investment_partners_data} // Options to display in the dropdown
+                                                    // selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
+                                                    onSelect={this.onInvestmentSelect} // Function will trigger on select event
+                                                    // onRemove={this.onRemove} // Function will trigger on remove event
+                                                    displayValue="Investment_partners" // Property name to display in the dropdown options
+                                                    onChange={this.handleChange}
+                                                    />
                                                 </Form.Group>                                        
                                             </Col>
+                                           <button onClick={this.get_result} type="button">
+                                            Search
+                                            </button>
                                         </Row>
 
                                         <Row className="mb-5">
                                             <Col lg={12} className="text-center">
-                                                Table Here
+                                               <ShowAll dataFromParent = {this.state.search_result} pending={this.state.pending} />
+                                                {/* {this.state.search_result.map(search_result => <div>{search_result.id}</div>)} */}
                                             </Col>
                                         </Row>
                                     </Form>

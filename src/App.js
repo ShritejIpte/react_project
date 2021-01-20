@@ -15,7 +15,7 @@ import Search  from './SearchComponent';
 import { About } from './About';
 import { NoMatch } from './NoMatch';
 import ClientList  from './ClientList';
-import { Invoices }  from './Invoices';
+import  Invoices_list   from './Invoices_list';
 import { Reports }  from './Reports';
 import Sidebar from './component/Sidebar';
 function App() {
@@ -40,7 +40,7 @@ function App() {
                   {/* <Route exact path='/signup' component={Signup}></Route>  */}
                   <Route exact path='/forgot' component={Forgot}></Route> 
                   <Route  path='/ClientList' component={ClientList}></Route>
-                  <Route  path='/Invoices' component={Invoices}></Route>
+                  <Route  path='/Invoices_list' component={Invoices_list}></Route>
                   {/* <Route  path='/Search' component={SearchComponent}></Route> */}
                    {/* <Route exact path="/home" component={Search} /> */}
                    <Route path="/about" component={About} />

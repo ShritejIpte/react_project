@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import Sidebar from './component/Sidebar';
 import {NavigationBar} from './component/NavigationBar';
 import {Card, Container,Row,Col,Table} from 'react-bootstrap';
+import DataTable, { createTheme } from 'react-data-table-component';
 const GridWrapper = styled.div`
   display: grid;
   grid-gap: 10px;
@@ -12,8 +13,47 @@ const GridWrapper = styled.div`
   grid-template-columns: repeat(12, 1fr);
   grid-auto-rows: minmax(25px, auto);
 `; 
-export const Invoices = () => (
-<>
+
+const table_data = [];
+const columns = [
+  {
+    name: 'Sr.no',
+    selector: 'company_name',
+    sortable: true,
+  },
+  {
+    name: 'Invoice Number',
+    selector: 'website',
+    sortable: true,
+  }, 
+  {
+    name:'Created Date',
+    selector: 'first_name',
+    sortable: true,
+  },
+  {
+    name:'Status',
+    selector: 'first_name',
+    sortable: true,
+  },
+   {
+    name:'Action',
+    selector: 'first_name',
+    sortable: true,
+  },
+  
+  
+  ];
+// export const Invoices_list = () => (
+  class Invoices_list extends Component {
+      constructor(props){
+        super(props);
+        this.state = {data:[]}
+ 
+      }
+ render() {
+    return (
+    <>
     <Sidebar />
     <NavigationBar />
     <div className="main-view">
@@ -23,6 +63,17 @@ export const Invoices = () => (
                     <Card className="mb-5">
                         <Card.Body>
                           <div className="order-details">
+                           <DataTable
+                              title="Search Result"
+                              columns={columns}
+                              // data={this.props.dataFromParent}
+                              data={table_data}
+                              pagination
+                              
+                              // progressPending={this.props.pending}
+                              // progressComponent={<LinearIndeterminate />}
+                              
+                            />
                               <div className="row mb-5">
                                   <div className="col-lg-8 col-md-8">
                                       <div className="details">
@@ -117,4 +168,8 @@ export const Invoices = () => (
         </Container>
     </div>  
 </>
-)
+  );
+  }
+}
+
+export default Invoices_list;
