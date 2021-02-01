@@ -135,7 +135,7 @@ componentWillUpdate(){
     // //  data = this.props.dataFromParent;
     //  console.log("data");
     //  console.log(data);
-    //   data = [{ id: 1, title: 'Conan the Barbarian', year: '1982' },{ id: 2, title: 'Conan the Barbarian', year: '1982' }];
+      // data = [{ id: 1, company_name: 'Conan the Barbarian', year: '1982' },{ id: 2, company_name: 'Conan the Barbarian', year: '1982' }];
    
     // this.setState({data: data});
 }
@@ -149,6 +149,7 @@ componentWillUpdate(){
         title="Search Result"
         columns={columns}
         data={this.props.dataFromParent}
+        // data={data}
         pagination
         progressPending={this.props.pending}
         // progressComponent={<LinearIndeterminate />}

@@ -2,7 +2,10 @@ import React from 'react';
 import './App.css';
 import {Link, Redirect} from 'react-router-dom';
 
+
 class Login extends React.Component {
+  
+
     constructor(props){
         super(props);
         this.state = {
@@ -29,6 +32,7 @@ class Login extends React.Component {
       }else{
          alert("Sorry!Your credentials are wrong!");
       }
+      
    }
    render() {
       let {redirectToHome, email, password} = this.state;

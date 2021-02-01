@@ -1,7 +1,7 @@
 import React,{Component} from "react";
 // import './App.css';
 import {Link, Redirect} from 'react-router-dom';
-
+import UserContext from '.././userContext';
 const initialState={       
         Email:"",      
         Password:"",
@@ -21,7 +21,7 @@ const initialState={
         //         }
 }
 class UserLogin extends Component{
-
+ static contextType = UserContext
 constructor(props){
     super(props);
     this.state=initialState;
@@ -84,9 +84,13 @@ login(){
       })
     }).then((Response) => Response.json()).then((Result) => {
       console.log(Result);
+      const user = this.context;
+
       if(Result.status==0){
          alert(Result.msg);
       }else{
+    user.login_data.access_token=Result.access_token;
+            // this.setState({ user.login_data.access_token:Result.access_token });
             this.setState({ access_token:Result.access_token });
             this.getData();
       }
@@ -127,7 +131,7 @@ getData(){
 render(){
 
      if(this.state.redirectToHome){
-         return <Redirect to="/home"/>
+         return <Redirect to="/ClientList"/>
       }
      
     return (

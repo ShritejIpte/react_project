@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar, DropdownButton, Dropdown  } from 'react-bootstrap';
 import styled from 'styled-components';
-
+import UserContext from '.././userContext'
 
 const Styles = styled.div`
   .navbar { background-color: transparent; }
@@ -17,6 +17,8 @@ const Styles = styled.div`
   }
 `; 
 
+     const user_name = sessionStorage.getItem('user_name');
+    
 export const NavigationBar = () => (
   <Styles>
     <Navbar expand="lg" className="clearfix">
@@ -32,8 +34,9 @@ export const NavigationBar = () => (
       </div> */}
       <div className="user-info float-righ">
       <Dropdown>
+    
         <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-        <span className='user-photo'><img src='images/profile-photo.png' alt='Profile Photo' /></span>Welcome, Super Admin
+        <span className='user-photo'><img src='images/profile-photo.png' alt='Profile Photo' /></span>Welcome, {user_name}
         </Dropdown.Toggle>
  
         <Dropdown.Menu className="float-right dropdown-menu-right">

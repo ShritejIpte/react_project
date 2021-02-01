@@ -4,8 +4,14 @@ import Sidebar from './component/Sidebar';
 import {NavigationBar} from './component/NavigationBar';
 import { Multiselect } from 'multiselect-react-dropdown';
 import ShowAll from './ShowAll';
-class ClientList extends Component{
+import {Link, Redirect} from 'react-router-dom';
+import {UserConsumer} from './userContext.js'
+// import {UserProvider} from './userContext.js'
+import UserContext from './userContext'
 
+class ClientList extends Component{
+  static contextType = UserContext
+  
 constructor(props){
     super(props);
     // this.state=initialState;
@@ -29,6 +35,8 @@ constructor(props){
     selected_investment_partners_data:[],
     search_result:[],
     pending:false,
+    result:false,
+    redirectToHome:true,
     //  search_result: [{
     //     empCode: "119",
     //     name: "Test employee",
@@ -43,6 +51,13 @@ constructor(props){
 //   handleChange(event) {    this.setState({value: event.target.value});  }
 
   componentDidMount() {
+
+   
+       const user = this.context;
+    const get_access_token = sessionStorage.getItem('access_token');
+
+      console.log("get_access_token :"+get_access_token);
+
 
  fetch('http://127.0.0.1:8000/api/get_dropdown_data', {
       method: 'get',
@@ -70,13 +85,25 @@ constructor(props){
     //   }
 
    })
+
+
+// console.log("SSSSSSS"+sessionStorage.getItem('access_token'));
+// console.log(JSON.stringify(sessionStorage.getItem('user_data')));
+
+
   }
  
 get_result=()=>
 {   
- fetch('http://127.0.0.1:8000/api/get_search_result', {
+     const get_access_token = sessionStorage.getItem('access_token');
+
+    if (sessionStorage.getItem("access_token") != null && sessionStorage.getItem("access_token") != "undefined") {
+          var bearer = 'Bearer ' + get_access_token;
+
+ fetch('http://127.0.0.1:8000/api/auth/get_search_result', {
       method: 'post',
             headers: {
+                 'Authorization': bearer,
             'Accept': 'application/json',
             'Content-Type': 'application/json'
             },
@@ -92,10 +119,11 @@ get_result=()=>
       }),
     }).then((Response) => Response.json()).then((Result) => {
       console.log(Result);
-this.setState({search_result:Result})
+this.setState({search_result:Result});
+this.setState({result:true});
    
    })
-this.setState({data: "Welcome"})
+    }
 }
 
 onCompanySelect=(selectedList, selectedItem) =>{
@@ -121,9 +149,36 @@ onEmployeesSelect=(selectedList, selectedItem) =>{
 }
 onInvestmentSelect=(selectedList, selectedItem) =>{
     this.setState({selected_investment_partners_data: selectedList})
+
+}
+
+
+generate_invoice=()=>{
+  alert("generate_invoice");
+      const get_access_token = sessionStorage.getItem('access_token');
+
 }
 
 render(){
+     const get_access_token = sessionStorage.getItem('access_token');
+    //  alert(get_access_token)
+    if(get_access_token==null || get_access_token=="undefined"){
+         return <Redirect to="/UserLogin"/>
+      }
+//   const get_access_token = sessionStorage.getItem('access_token');
+//       console.log("get_access_token :"+get_access_token);
+//     if(get_access_token!=""){
+
+//     return <Redirect to="/UserLogin"/>
+//     alert("Return to Login");
+//     } 
+var showtable="";
+if (this.state.result) {
+  showtable = <><ShowAll dataFromParent = {this.state.search_result} pending={this.state.pending} /><button onClick={this.generate_invoice} type="button">Generate Invoice</button></>;
+} else {
+  showtable = "";
+}
+
      return (
          <div>
         <Sidebar/>
@@ -135,7 +190,13 @@ render(){
                             <Card>
                                 <Card.Body>
                                     <label className="section-title">Search  Query</label>
-
+  {/* <UserConsumer>
+       {(value) => (<Avatar user={value}/>)} 
+       {(value) => {
+          return <div> Hello {value}</div> 
+           return <div> Hello {value.user}</div>
+       }} 
+    </UserConsumer> */}
                                     <Form className="inner-forms">
                                         <Row className="mb-5">
                                             <Col lg={3}>
@@ -262,10 +323,14 @@ render(){
 
                                         <Row className="mb-5">
                                             <Col lg={12} className="text-center">
-                                               <ShowAll dataFromParent = {this.state.search_result} pending={this.state.pending} />
+                                            {showtable}
+                                            
+                                               {/* <ShowAll dataFromParent = {this.state.search_result} pending={this.state.pending} /> */}
+ 
                                                 {/* {this.state.search_result.map(search_result => <div>{search_result.id}</div>)} */}
                                             </Col>
                                         </Row>
+                                       
                                     </Form>
                                 </Card.Body>
                             </Card>

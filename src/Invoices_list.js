@@ -44,6 +44,9 @@ const columns = [
   
   
   ];
+
+
+  
 // export const Invoices_list = () => (
   class Invoices_list extends Component {
       constructor(props){
@@ -51,6 +54,36 @@ const columns = [
         this.state = {data:[]}
  
       }
+      
+  componentDidMount() {
+
+ fetch('http://127.0.0.1:8000/api/get_dropdown_data', {
+      method: 'get',
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+            },
+    
+    }).then((Response) => Response.json()).then((Result) => {
+      console.log(Result);
+    //   console.log(Result.data.company_name);
+    //   if(Result.status==0){
+    //      alert(Result.msg);
+    //   }else{
+    //         this.getData();
+            this.setState({ company_data:Result.data.company_name });
+            this.setState({ industry_data:Result.data.industry });
+            this.setState({ job_title:Result.data.job_title });
+            this.setState({ city_data:Result.data.city });
+            this.setState({ state_data:Result.data.state });
+            this.setState({ country_data:Result.data.country });
+            this.setState({ employees_data:Result.data.employees });
+            this.setState({ investment_partners_data:Result.data.investment_partners });
+            
+    //   }
+
+   })
+  }
  render() {
     return (
     <>
