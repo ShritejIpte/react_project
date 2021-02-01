@@ -156,7 +156,28 @@ onInvestmentSelect=(selectedList, selectedItem) =>{
 generate_invoice=()=>{
   alert("generate_invoice");
       const get_access_token = sessionStorage.getItem('access_token');
+      if(get_access_token==null || get_access_token=="undefined"){
+        return <Redirect to="/UserLogin"/>
+     }
 
+     let bearer = 'Bearer '+get_access_token;
+
+    fetch('http://127.0.0.1:8000/api/auth/generate_invoice', {
+      method: 'get',
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+              'Authorization': bearer,
+            },
+            
+      // body: JSON.stringify({       
+      //   email_id: this.state.Email,
+      //   password: this.state.Password         
+      // })
+    }).then((Response) => Response.json()).then((Result) => {
+
+
+    });
 }
 
 render(){
