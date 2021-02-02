@@ -1,0 +1,4 @@
+02-02-2021
+
+ALTER TABLE `exported_data` CHANGE `invoice_id` `invoice_id` VARCHAR(100) NOT NULL DEFAULT '0';
+
