@@ -8,6 +8,9 @@ import {Link, Redirect} from 'react-router-dom';
 import {UserConsumer} from './userContext.js'
 // import {UserProvider} from './userContext.js'
 import UserContext from './userContext'
+// import { createHashHistory } from 'history'
+
+// const history = createHashHistory()
 
 class ClientList extends Component{
   static contextType = UserContext
@@ -37,6 +40,7 @@ constructor(props){
     pending:false,
     result:false,
     redirectToHome:true,
+    redirect: false,
     //  search_result: [{
     //     empCode: "119",
     //     name: "Test employee",
@@ -95,8 +99,12 @@ constructor(props){
  
 get_result=()=>
 {   
-     const get_access_token = sessionStorage.getItem('access_token');
 
+ 
+     const get_access_token = sessionStorage.getItem('access_token');
+    //  browserHistory.push('/Invoices_list')
+    //  return <Redirect to="/Invoices_list"/>
+    //  return false;
     if (sessionStorage.getItem("access_token") != null && sessionStorage.getItem("access_token") != "undefined") {
           var bearer = 'Bearer ' + get_access_token;
 
@@ -154,6 +162,7 @@ onInvestmentSelect=(selectedList, selectedItem) =>{
 
 
 generate_invoice=()=>{
+    this.setState({redirect: true});
   alert("generate_invoice");
       const get_access_token = sessionStorage.getItem('access_token');
       if(get_access_token==null || get_access_token=="undefined"){
@@ -163,11 +172,11 @@ generate_invoice=()=>{
      let bearer = 'Bearer '+get_access_token;
 
     fetch('http://127.0.0.1:8000/api/auth/generate_invoice', {
-      method: 'get',
+      method: 'post',
             headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-              'Authorization': bearer,
+            'Authorization': bearer,
             },
             
       // body: JSON.stringify({       
@@ -175,12 +184,27 @@ generate_invoice=()=>{
       //   password: this.state.Password         
       // })
     }).then((Response) => Response.json()).then((Result) => {
+        console.log(Result.data);
+        if(Result.status == 1){
+            return <Redirect to="/Invoices_list"/>
+        }else{
 
+        }
 
-    });
+    }); 
 }
 
 render(){
+
+    const { redirect } = this.state; 
+   
+   
+
+    console.log(redirect);
+    if (redirect) {
+        return <Redirect to='/Invoices_list'/>;
+      }
+
      const get_access_token = sessionStorage.getItem('access_token');
     //  alert(get_access_token)
     if(get_access_token==null || get_access_token=="undefined"){
