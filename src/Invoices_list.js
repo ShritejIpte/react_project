@@ -134,10 +134,13 @@ const columns = [
         this.state = {data:[],
           table_data:[],
           loading: true,
+          showPaypal: false
         }
  
       }
-      
+      showPaypalButtons = () => {
+        this.setState({ showPaypal: true });
+      };
   componentDidMount() {
     const get_access_token = sessionStorage.getItem('access_token');
     if(get_access_token==null || get_access_token=="undefined"){
