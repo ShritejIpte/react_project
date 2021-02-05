@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{Component} from 'react';
 import styled from 'styled-components';
 import Sidebar from './component/Sidebar';
 import {NavigationBar} from './component/NavigationBar';
@@ -12,7 +12,59 @@ const GridWrapper = styled.div`
   grid-template-columns: repeat(12, 1fr);
   grid-auto-rows: minmax(25px, auto);
 `; 
-export const Invoices = () => (
+// export const Invoices = () => (
+class Invoices extends Component{
+  constructor() {
+    super();
+    this.state = {
+       data: []
+    }
+ }
+
+ componentDidMount() {
+  // var th = this;
+  // this.serverRequest = axios.get(this.props.source)
+  // .then(function(event) { 
+  //     th.setState({
+  //         data: event.data
+  //     });
+  // })
+
+//   fetch('http://127.0.0.1:8000/api/auth/user', {
+//             method: 'get',
+//             headers: {
+//               'Authorization': bearer,
+//               'Accept': 'application/json',
+//               'Content-Type': 'application/json'
+//             },
+    
+//     }).then((Response) => Response.json()).then((Result) => {
+//       console.log(Result);
+//       //  this.props.history.push('/ticket-list')
+// //  this.props.history.push("/") //doing redirect here.
+//         if(Result.status==1){
+//       console.log(Result.status);
+//         sessionStorage.setItem('access_token', get_access_token);
+//         sessionStorage.setItem('user_name', Result.user_data.first_name);
+//         // sessionStorage.setItem('user_name', Result.user_data.first_name);
+//         // sessionStorage.setItem('user_name', Result.user_data.first_name);
+//         // sessionStorage.setItem('user_data', Result.user_data);
+//       //  return (<Redirect to="/" />);
+//         }else{
+//         // return (<Redirect to="/" />);
+//         }
+//     });
+ }
+  render(){
+
+    const contents = this.state.data.forEach(item => {
+      // change the title and location key based on your API
+      return <tr>
+        <td>{item.title}</td> 
+        <td>{item.location}</td>
+      </tr>
+ })
+    return (
 <>
     <Sidebar />
     <NavigationBar />
@@ -65,27 +117,15 @@ export const Invoices = () => (
                                         </tr>
                                       </thead>
                                       <tbody>
-                                        <tr>
+                                      {/* {contents} */}
+                                        {/* <tr>
                                           <td>1</td>
                                           <td>Data Processing</td>
                                           <td>50</td>
                                           <td>USA</td>
                                           <td>$20</td>
-                                        </tr>
-                                        <tr>
-                                          <td>2</td>
-                                          <td>Data Processing</td>
-                                          <td>100</td>
-                                          <td>USA</td>
-                                          <td>$50</td>
-                                        </tr>
-                                        <tr>
-                                          <td>3</td>
-                                          <td>Data Processing</td>
-                                          <td>200</td>
-                                          <td>USA</td>
-                                          <td>$90</td>
-                                        </tr>
+                                        </tr> */}
+                                       
                                       </tbody>
                                     </Table>
                                   </div>
@@ -93,7 +133,7 @@ export const Invoices = () => (
                               <div className="row mb-5">
                                   <div className="col-lg-12 col-md-12 text-right">
                                       <p style={{color:'#1b2a86'}}>Sub - Total amount: $1500</p>
-                                      <p style={{color:'#1b2a86'}}>VAT: $35</p>
+                                      {/* <p style={{color:'#1b2a86'}}>VAT: $35</p> */}
                                       <p style={{color:'#1b2a86',fontSize:'18px'}}>Grand Total : $1535</p>
                                   </div>
                               </div>
@@ -117,4 +157,8 @@ export const Invoices = () => (
         </Container>
     </div>  
 </>
-)
+    );
+  }
+}
+
+export default Invoices;

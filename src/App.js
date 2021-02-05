@@ -16,6 +16,7 @@ import { About } from './About';
 import { NoMatch } from './NoMatch';
 import ClientList  from './ClientList';
 import  Invoices_list   from './Invoices_list';
+import  Invoices   from './Invoices';
 import { Reports }  from './Reports';
 import Sidebar from './component/Sidebar';
 // import { hashHistory } from 'react-router;'
@@ -138,6 +139,7 @@ componentDidMount(){
                   {/* <Route  path='/Search' component={SearchComponent}></Route> */}
                    {/* <Route exact path="/home" component={Search} /> */}
                    <Route path="/about" component={About} />
+                   <Route path="/invoice" component={Invoices} />
                     <Route path="/NoMatch" component={NoMatch} />
                     <Route path="/Reports" component={Reports} />
                     {/* <Route path="/ClientList" component={ClientList} /> */}

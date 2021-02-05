@@ -5,6 +5,7 @@ import {NavigationBar} from './component/NavigationBar';
 import {Card, Container,Row,Col,Table} from 'react-bootstrap';
 import DataTable, { createTheme } from 'react-data-table-component';
 import {Link, Redirect} from 'react-router-dom';
+import { PayPalButton } from "react-paypal-button-v2";
 const GridWrapper = styled.div`
   display: grid;
   grid-gap: 10px;
@@ -47,6 +48,7 @@ const columns = [
       console.log(index);
       console.log(record);
       if(record.invoice_id==0){
+        
         return (
             <>
                 <button
@@ -79,17 +81,32 @@ const columns = [
       console.log(index);
       console.log(record);
       if(record.payment_status==0){
-
+       
+        let url=`/test/${record.invoice_id}`;
         return (
             <>
-                <button
+                {/* <button
                     className="btn btn-primary btn-sm"                  
-                    style={{marginRight: '5px'}}>
+                    style={{marginRight: '5px'}} onClick={()=>{
+                     return <Redirect to="/UserLogin"/>
+                    }}>
                         Make Payment
-                </button>
+                </button>  */}
+                <Link to={`/invoice/${record.invoice_id}`} >Make Payment</Link>
                
             </>
         )
+    }else{
+      return (
+        <>
+            <button
+                className="btn btn-primary btn-sm"                  
+                style={{marginRight: '5px'}}>
+                    View Invoice
+            </button> 
+           
+        </>
+    )
     }
       }
   },
@@ -121,15 +138,12 @@ const columns = [
   
   
   ];
+ 
 
-// this.state = {
-//     loading: true,
-// }
-// }
-  
 // export const Invoices_list = () => (
   class Invoices_list extends Component {
-      constructor(props){
+   
+    constructor(props){
         super(props);
         this.state = {data:[],
           table_data:[],
@@ -141,6 +155,9 @@ const columns = [
       showPaypalButtons = () => {
         this.setState({ showPaypal: true });
       };
+      // make_payment=()=>{
+      //   alert("make_payment");
+      // };
   componentDidMount() {
     const get_access_token = sessionStorage.getItem('access_token');
     if(get_access_token==null || get_access_token=="undefined"){
@@ -165,8 +182,10 @@ const columns = [
       // table_data= ;
    })
   }
+  make_payment = () => {
+    // this.setState({ showPaypal: true });
+  };
  render() {
-   
   this.config = {
     // key_column: 'id',
     page_size: 10,
